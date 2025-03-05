@@ -57,3 +57,26 @@ listaTags.addEventListener("click", (evento) => {
     listaTags.removeChild(tagRemover);
   }
 });
+
+const tagsDisponiveis = [
+  "Front-end",
+  "Back-end",
+  "Fullstack",
+  "HTML",
+  "CSS",
+  "Javascript",
+  "Progrmaçãp",
+  "Data Science",
+  "Java",
+  "C#",
+  "Angular",
+  "React",
+];
+
+async function buscarTags() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(tagsDisponiveis);
+    }, 1000);
+  });
+}
