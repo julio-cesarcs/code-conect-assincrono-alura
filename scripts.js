@@ -90,20 +90,6 @@ inputTags.addEventListener("keypress", async (evento) => {
 
 const botaoPublicar = document.querySelector(".botao-publicar");
 
-botaoPublicar.addEventListener("click", async (evento) => {
-  evento.preventDefault();
-
-  const nomeDoProjeto = document.getElementById("nome").value;
-  const descricaoDoProjeto = document.getElementById("descricao").value;
-  const tagsDoProjeto = Array.from(listaTags.querySelectorAll("p")).map(
-    (tag) => tag.textContent
-  );
-
-  console.log(nomeDoProjeto);
-  console.log(descricaoDoProjeto);
-  console.log(tagsDoProjeto);
-});
-
 async function publicarProjeto(
   nomeDoProjeto,
   descricaoDoProjeto,
@@ -118,6 +104,43 @@ async function publicarProjeto(
       } else {
         reject("Erro ao publicar o projeto.");
       }
-    },2000);
+    }, 2000);
   });
 }
+
+botaoPublicar.addEventListener("click", async (evento) => {
+  evento.preventDefault();
+
+  const nomeDoProjeto = document.getElementById("nome").value;
+  const descricaoDoProjeto = document.getElementById("descricao").value;
+  const tagsDoProjeto = Array.from(listaTags.querySelectorAll("p")).map(
+    (tag) => tag.textContent
+  );
+
+  try {
+    const resultado = await publicarProjeto(
+      nomeDoProjeto,
+      descricaoDoProjeto,
+      tagsDoProjeto
+    );
+    console.log(resultado);
+    alert("Deu tudo certo!");
+  } catch (error) {
+    console.log("Erro: ", error);
+    alert("Deu tudo errado!", error);
+  }
+});
+
+const botaoDescartar = document.querySelector(".botao-descartar");
+
+botaoDescartar.addEventListener("click", (evento) => {
+  evento.preventDefault();
+
+  const formulario = document.querySelector("form");
+  formulario.reset();
+  
+  imagemPrincipal.src = "./img/imagem1.png";
+  nomeDaImagem.textContent = "image_projeto.png";
+
+  listaTags.innerHTML = "";
+});
